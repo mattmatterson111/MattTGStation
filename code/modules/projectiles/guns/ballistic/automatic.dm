@@ -290,8 +290,8 @@
 	fire_sound = "sound/weapons/sniper_shot.ogg"
 	fire_sound_volume = 90
 	vary_fire_sound = FALSE
-	load_sound = "sound/weapons/sniper_mag_insert.ogg"
-	rack_sound = "sound/weapons/sniper_rack.ogg"
+	load_sound = 'sound/weapons/sniper_mag_insert.ogg'
+	rack_sound = 'sound/weapons/sniper_rack.ogg'
 	recoil = 2
 	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
