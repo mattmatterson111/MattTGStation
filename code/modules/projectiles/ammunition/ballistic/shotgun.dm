@@ -7,6 +7,7 @@
 	caliber = "shotgun"
 	projectile_type = /obj/item/projectile/bullet/shotgun_slug
 	materials = list(MAT_METAL=4000)
+	eject_sound = 'sound/weapons/shotgun_fall.ogg'
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"

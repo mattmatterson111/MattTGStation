@@ -565,6 +565,9 @@ This is here to make the tiles around the station mininuke change when it's arme
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	icon_state = "datadisk0"
+	
+	pickupsound = 'sound/items/handle/disk_pickup.ogg'
+	dropsound = 'sound/items/handle/disk_drop.ogg'
 
 /obj/item/disk/nuclear
 	name = "nuclear authentication disk"

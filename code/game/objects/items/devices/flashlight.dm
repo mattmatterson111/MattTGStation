@@ -39,6 +39,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	playsound(src.loc, 'sound/items/flashlight_on.ogg', 75, 1)
 	return 1
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)

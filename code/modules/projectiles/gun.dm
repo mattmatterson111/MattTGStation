@@ -17,6 +17,7 @@
 	force = 5
 	item_flags = NEEDS_PERMIT
 	attack_verb = list("struck", "hit", "bashed")
+	pickupsound = 'sound/items/handle/gun_pickup.ogg'
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE
@@ -584,7 +585,7 @@
 		user.client.pixel_x = world.icon_size*_x
 		user.client.pixel_y = world.icon_size*_y
 	else
-		user.client.change_view(CONFIG_GET(string/default_view))
+		user.client.check_view()
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
 	return zoomed

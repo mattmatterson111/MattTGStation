@@ -100,6 +100,14 @@
 	else
 		return !density
 
+/obj/structure/table/Crossed(var/mob/living/M as mob)
+	if(istype(M))
+		M.pixel_y = 12
+
+/obj/structure/table/Uncrossed(var/mob/living/M as mob)
+	if(istype(M))
+		M.pixel_y = 0
+
 /obj/structure/table/CanAStarPass(ID, dir, caller)
 	. = !density
 	if(ismovableatom(caller))

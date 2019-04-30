@@ -92,6 +92,9 @@
 
 	apply_overlay(FIRE_LAYER)
 
+/mob/living/carbon/human/update_fire()
+	..("Standing")
+
 /mob/living/carbon/update_damage_overlays()
 	remove_overlay(DAMAGE_LAYER)
 

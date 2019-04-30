@@ -5,8 +5,8 @@
 	silent = FALSE
 	losebreath = 0
 
-	if(!gibbed)
-		emote("deathgasp")
+	//if(!gibbed)
+		//emote("deathgasp")
 
 	. = ..()
 	

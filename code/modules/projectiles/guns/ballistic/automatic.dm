@@ -44,9 +44,11 @@
 		fire_delay = 0
 		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
 	else
-		burst_size = initial(burst_size)
-		fire_delay = initial(fire_delay)
-		to_chat(user, "<span class='notice'>You switch to [burst_size]-rnd burst.</span>")
+		automatic = 2
+		to_chat(user, "<span class='notice'>You switch to automatic.</span>")
+		//burst_size = initial(burst_size)
+		//fire_delay = initial(fire_delay)
+		//to_chat(user, "<span class='notice'>You switch to [burst_size]-rnd burst.</span>")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_icon()

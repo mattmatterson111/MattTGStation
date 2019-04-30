@@ -458,6 +458,8 @@
 	if(!silent)
 		if(rest)
 			to_chat(src, "<span class='notice'>You are now resting.</span>")
+			if(has_gravity())
+				playsound(src, "bodyfall", 50, 1)
 		else
 			to_chat(src, "<span class='notice'>You get up.</span>")
 	resting = rest

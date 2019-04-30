@@ -32,6 +32,9 @@
 	var/foldable = /obj/item/stack/sheet/cardboard
 	var/illustration = "writing"
 
+	pickupsound = 'sound/items/handle/cardboardbox_pickup.ogg'
+	dropsound = 'sound/items/handle/cardboardbox_drop.ogg'
+
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -606,6 +609,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
 
+	pickupsound = 'sound/items/handle/matchbox_pickup.ogg'
+	dropsound = 'sound/items/handle/matchbox_drop.ogg'
+
 /obj/item/storage/box/matches/ComponentInitialize()
 	. = ..()
 	GET_COMPONENT(STR, /datum/component/storage)
@@ -617,7 +623,12 @@
 
 /obj/item/storage/box/matches/attackby(obj/item/match/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/match))
-		W.matchignite()
+		if(!W.lit)
+			if(prob(50))
+				playsound(src.loc, 'sound/items/matchstick_lit.ogg', 100, 1)
+				W.matchignite()
+			else
+				playsound(src.loc, 'sound/items/matchstick_hit.ogg', 100, 1)
 
 /obj/item/storage/box/lights
 	name = "box of replacement bulbs"

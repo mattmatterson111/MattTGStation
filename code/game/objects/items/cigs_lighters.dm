@@ -106,6 +106,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	throw_speed = 0.5
 	item_state = "cigoff"
 	w_class = WEIGHT_CLASS_TINY
+	clothing_flags = SHOWEROKAY
 	body_parts_covered = null
 	grind_results = list()
 	heat = 1000
@@ -120,6 +121,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/smoketime = 180 // 1 is 2 seconds, so a single cigarette will last 6 minutes.
 	var/chem_volume = 30
 	var/list/list_reagents = list("nicotine" = 15)
+	pickupsound = null
+	equipsound = null
+	dropsound = null
 
 /obj/item/clothing/mask/cigarette/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing [src] as quickly as [user.p_they()] can! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer.</span>")
@@ -201,6 +205,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		var/mob/M = loc
 		M.update_inv_wear_mask()
 		M.update_inv_hands()
+	playsound(src, 'sound/items/cig_light.ogg', 75, 1, -1)
 
 /obj/item/clothing/mask/cigarette/extinguish()
 	if(!lit)
@@ -220,6 +225,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
 		M.update_inv_wear_mask()
 		M.update_inv_hands()
+	playsound(src, 'sound/items/cig_snuff.ogg', 25, 1)
 
 /obj/item/clothing/mask/cigarette/proc/handle_reagents()
 	if(reagents.total_volume)
@@ -244,6 +250,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(ismob(loc))
 			to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
 		qdel(src)
+		playsound(src, 'sound/items/cig_snuff.ogg', 25, 1)
 		return
 	open_flame()
 	if((reagents && reagents.total_volume) && (nextdragtime <= world.time))
@@ -256,6 +263,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		new type_butt(user.loc)
 		new /obj/effect/decal/cleanable/ash(user.loc)
 		qdel(src)
+		playsound(src, 'sound/items/cig_snuff.ogg', 25, 1)
 	. = ..()
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/carbon/M, mob/living/carbon/user)
@@ -272,6 +280,14 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			cig.attackby(src, user)
 		else
 			cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name].</span>")
+	
+	if(lit && M == user && istype(M))
+		if(M.is_mouth_covered())
+			to_chat(M, "<span class='warning'>Your mouth is covered!</span>")
+			return
+		M.visible_message("<span class='notice'>[M.name] takes a drag of their [name].</span>")
+		playsound(M, 'sound/effects/inhale.ogg', 50, 0, -1)
+	
 	else
 		return ..()
 
@@ -589,6 +605,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			set_lit(TRUE)
 			if(fancy)
 				user.visible_message("Without even breaking stride, [user] flips open and lights [src] in one smooth movement.", "<span class='notice'>Without even breaking stride, you flip open and light [src] in one smooth movement.</span>")
+				playsound(src.loc, 'sound/items/zippo_on.ogg', 100, 1)
 			else
 				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
@@ -607,13 +624,16 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 					user.apply_damage(5, BURN, hitzone)
 					user.visible_message("<span class='warning'>After a few attempts, [user] manages to light [src] - however, [user.p_they()] burn [user.p_their()] finger in the process.</span>", "<span class='warning'>You burn yourself while lighting the lighter!</span>")
 					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "burnt_thumb", /datum/mood_event/burnt_thumb)
+				playsound(src.loc, 'sound/items/lighter_on.ogg', 100, 1)
 
 		else
 			set_lit(FALSE)
 			if(fancy)
 				user.visible_message("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.", "<span class='notice'>You quietly shut off [src] without even looking at what you're doing. Wow.</span>")
+				playsound(src.loc, 'sound/items/zippo_off.ogg', 100, 1)
 			else
 				user.visible_message("[user] quietly shuts off [src].", "<span class='notice'>You quietly shut off [src].</span>")
+				playsound(src.loc, 'sound/items/lighter_off.ogg', 100, 1)
 	else
 		. = ..()
 

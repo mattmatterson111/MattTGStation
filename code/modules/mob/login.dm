@@ -32,6 +32,8 @@
 
 	sync_mind()
 
+	client.check_fullscreen()
+
 	//Reload alternate appearances
 	for(var/v in GLOB.active_alternate_appearances)
 		if(!v)
@@ -42,7 +44,7 @@
 	update_client_colour()
 	update_mouse_pointer()
 	if(client)
-		client.change_view(CONFIG_GET(string/default_view)) // Resets the client.view in case it was changed.
+		client.check_view() // Resets the client.view in case it was changed.
 
 		if(client.player_details.player_actions.len)
 			for(var/datum/action/A in client.player_details.player_actions)
