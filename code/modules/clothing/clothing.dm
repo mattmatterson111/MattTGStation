@@ -41,7 +41,6 @@
 
 	pickupsound = 'sound/items/handle/cloth_pickup.ogg'
 	dropsound = 'sound/items/handle/cloth_drop.ogg'
-	equipsound = 'sound/items/handle/cloth_pickup.ogg'
 
 
 /obj/item/clothing/Initialize()
