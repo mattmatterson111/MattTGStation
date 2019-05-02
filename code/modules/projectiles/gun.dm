@@ -17,7 +17,7 @@
 	force = 5
 	item_flags = NEEDS_PERMIT
 	attack_verb = list("struck", "hit", "bashed")
-	pickupsound = 'sound/items/handle/gun_pickup.ogg'
+	//pickupsound = 'sound/items/handle/gun_pickup.ogg'
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE

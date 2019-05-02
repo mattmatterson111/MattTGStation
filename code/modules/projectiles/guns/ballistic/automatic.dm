@@ -44,7 +44,7 @@
 		fire_delay = 0
 		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
 	else
-		automatic = 2
+		automatic = 0.1
 		to_chat(user, "<span class='notice'>You switch to automatic.</span>")
 		//burst_size = initial(burst_size)
 		//fire_delay = initial(fire_delay)
