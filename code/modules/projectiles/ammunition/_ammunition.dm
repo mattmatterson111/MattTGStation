@@ -33,7 +33,10 @@
 		BB = new projectile_type(src)
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
-	setDir(pick(GLOB.alldirs))
+	var/matrix/M = matrix()
+	M.Turn(rand(180))
+	src.transform = M
+	//setDir(pick(GLOB.alldirs))
 	update_icon()
 
 /obj/item/ammo_casing/update_icon()
