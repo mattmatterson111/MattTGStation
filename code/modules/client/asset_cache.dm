@@ -521,7 +521,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	verify = FALSE
 	assets = list(
 		"json2.min.js"             = 'code/modules/goonchat/browserassets/js/json2.min.js',
-		"errorHandler.js"          = 'code/modules/goonchat/browserassets/js/errorHandler.js',
 		"browserOutput.js"         = 'code/modules/goonchat/browserassets/js/browserOutput.js',
 		"fontawesome-webfont.eot"  = 'tgui/assets/fonts/fontawesome-webfont.eot',
 		"fontawesome-webfont.svg"  = 'tgui/assets/fonts/fontawesome-webfont.svg',
@@ -684,6 +683,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 		if(icon_state in icon_states(icon_file))
 			I = icon(icon_file, icon_state, SOUTH)
+			var/c = initial(item.color)
+			if (!isnull(c) && c != "#FFFFFF")
+				I.Blend(initial(c), ICON_MULTIPLY)
 		else
 			item = new item()
 			I = icon(item.icon, item.icon_state, SOUTH)
