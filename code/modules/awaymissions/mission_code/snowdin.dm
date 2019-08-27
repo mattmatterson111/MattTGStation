@@ -480,7 +480,7 @@
 				/obj/item/storage/firstaid/brute = 27,
 				/obj/item/storage/firstaid/fire = 27,
 				/obj/item/storage/toolbox/syndicate = 12,
-				/obj/item/grenade/plastic/c4 = 7,
+				/obj/item/grenade/c4 = 7,
 				/obj/item/grenade/clusterbuster/smoke = 15,
 				/obj/item/clothing/under/chameleon = 13,
 				/obj/item/clothing/shoes/chameleon/noslip = 10,
@@ -510,7 +510,6 @@
 				/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
 				/obj/item/book/granter/spell/barnyard = 4,
 				/obj/item/pickaxe/drill/diamonddrill = 6,
-				/obj/item/borg/upgrade/vtec = 7,
 				/obj/item/borg/upgrade/disablercooler = 7)
 
 

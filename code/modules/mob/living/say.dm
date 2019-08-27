@@ -101,6 +101,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(ic_blocked)
 		//The filter warning message shows the sanitized message though.
 		to_chat(src, "<span class='warning'>That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[message]\"</span></span>")
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, lowertext(config.ic_filter_regex.match))
 		return
 
 	var/datum/saymode/saymode = SSradio.saymodes[talk_key]
@@ -129,7 +130,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		say_dead(original_message)
 		return
 
-	if(check_emote(original_message, forced) || !can_speak_basic(original_message, ignore_spam))
+	if(check_emote(original_message, forced) || !can_speak_basic(original_message, ignore_spam, forced))
 		return
 
 	if(in_critical)
@@ -316,12 +317,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(can_speak_basic(message) && can_speak_vocal(message))
 		return 1
 
-/mob/living/proc/can_speak_basic(message, ignore_spam = FALSE) //Check BEFORE handling of xeno and ling channels
+/mob/living/proc/can_speak_basic(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (muted).</span>")
 			return 0
-		if(!ignore_spam && client.handle_spam_prevention(message,MUTE_IC))
+		if(!(ignore_spam || forced) && client.handle_spam_prevention(message,MUTE_IC))
 			return 0
 
 	return 1
@@ -387,12 +388,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(MODE_WHISPER)
 			return ITALICS
 		if(MODE_R_HAND)
-			for(var/obj/item/r_hand in get_held_items_for_side("r", all = TRUE))
+			for(var/obj/item/r_hand in get_held_items_for_side(RIGHT_HANDS, all = TRUE))
 				if (r_hand)
 					return r_hand.talk_into(src, message, , spans, language)
 				return ITALICS | REDUCE_RANGE
 		if(MODE_L_HAND)
-			for(var/obj/item/l_hand in get_held_items_for_side("l", all = TRUE))
+			for(var/obj/item/l_hand in get_held_items_for_side(LEFT_HANDS, all = TRUE))
 				if (l_hand)
 					return l_hand.talk_into(src, message, , spans, language)
 				return ITALICS | REDUCE_RANGE

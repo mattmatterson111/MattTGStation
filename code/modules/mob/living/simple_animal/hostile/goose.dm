@@ -6,7 +6,7 @@
 	icon_state = "goose" // sprites by cogwerks from goonstation, used with permission
 	icon_living = "goose"
 	icon_dead = "goose_dead"
-	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
@@ -56,8 +56,10 @@
 	. = ..()
 	goosevomit = new
 	goosevomit.Grant(src)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/goosement)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/Destroy()
+	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	QDEL_NULL(goosevomit)
 	return ..()
 
@@ -67,12 +69,10 @@
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/attacked_by(obj/item/O, mob/user)
 	. = ..()
-	feed(O)
+	if(istype(O, /obj/item/reagent_containers/food))
+		feed(O)
 
-/mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/feed(obj/item/O)
-	var/obj/item/reagent_containers/food/tasty = O
-	if(!istype(O))
-		return
+/mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/feed(obj/item/reagent_containers/food/tasty)
 	if (contents.len > GOOSE_SATIATED)
 		visible_message("<span class='notice'>[src] looks too full to eat \the [tasty]!</span>")
 		return
@@ -133,8 +133,7 @@
 	vomiting = FALSE
 	icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/retaliate/goose/vomit/Moved(oldLoc, dir)
-	. = ..()
+/mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/goosement(atom/movable/AM, OldLoc, Dir, Forced)
 	if(vomiting)
 		vomit() // its supposed to keep vomiting if you move
 		return

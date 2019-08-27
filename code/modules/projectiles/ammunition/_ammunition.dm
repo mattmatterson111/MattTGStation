@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 500)
 	//dropsound = 'sound/items/handle/casing_drop.ogg'
+	materials = list(/datum/material/iron = 500)
 	var/fire_sound = null						//What sound should play when this ammo is fired
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
@@ -38,6 +39,13 @@
 	src.transform = M
 	//setDir(pick(GLOB.alldirs))
 	update_icon()
+
+/obj/item/ammo_casing/Destroy()
+	. = ..()
+
+	var/turf/T = get_turf(src)
+	if(T && !BB && is_station_level(T.z))
+		SSblackbox.record_feedback("tally", "station_mess_destroyed", 1, name)
 
 /obj/item/ammo_casing/update_icon()
 	..()
@@ -71,11 +79,12 @@
 		return ..()
 
 /obj/item/ammo_casing/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(heavy_metal)
-		bounce_away(FALSE, NONE)
+	bounce_away(FALSE, NONE)
 	. = ..()
 
 /obj/item/ammo_casing/proc/bounce_away(still_warm = FALSE, bounce_delay = 3)
+	if(!heavy_metal)
+		return
 	update_icon()
 	SpinAnimation(10, 1)
 	var/turf/T = get_turf(src)

@@ -30,6 +30,7 @@
 #define ITEM_SLOT_NECK			(1<<13)
 #define ITEM_SLOT_HANDS			(1<<14)
 #define ITEM_SLOT_BACKPACK		(1<<15)
+#define ITEM_SLOT_SUITSTORE		(1<<16)
 
 //SLOTS
 #define SLOT_BACK			1
@@ -88,6 +89,8 @@
 			. = ITEM_SLOT_POCKET
 		if(SLOT_HANDS)
 			. = ITEM_SLOT_HANDS
+		if(SLOT_S_STORE)
+			. = ITEM_SLOT_SUITSTORE
 		if(SLOT_IN_BACKPACK)
 			. = ITEM_SLOT_BACKPACK
 
@@ -124,6 +127,10 @@
 #define HANDS		(HAND_LEFT | HAND_RIGHT)
 #define NECK		(1<<11)
 #define FULL_BODY	(~0)
+
+//defines for the index of hands
+#define LEFT_HANDS 1
+#define RIGHT_HANDS 2
 
 //flags for female outfits: How much the game can safely "take off" the uniform without it looking weird
 #define NO_FEMALE_UNIFORM			0

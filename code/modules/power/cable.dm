@@ -81,8 +81,9 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 		if(linked_dirs & check_dir)
 			var/TB = get_step(loc, check_dir)
 			var/obj/structure/cable/C = locate(/obj/structure/cable) in TB
-			C.linked_dirs &= ~inverse
-			C.update_icon()
+			if(C)
+				C.linked_dirs &= ~inverse
+				C.update_icon()
 
 	if(powernet)
 		cut_cable_from_powernet()				// update the powernets
@@ -283,19 +284,23 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 // Powernets handling helpers
 //////////////////////////////////////////////
 
-//if powernetless_only = 1, will only get connections without powernet
-//ignore_dir makes sure that connections coming from that direction are ignored
-/obj/structure/cable/proc/get_connections(powernetless_only = FALSE, ignore_dir = null)
-	. = list()	// this will be a list of all connected power objects
+/obj/structure/cable/proc/get_cable_connections(powernetless_only)
+	. = list()
 	var/turf/T
-
 	for(var/check_dir in GLOB.cardinals)
-		if(linked_dirs & check_dir && check_dir != ignore_dir)
+		if(linked_dirs & check_dir)
 			T = get_step(src, check_dir)
 			if(T)
-				. += power_list(T, src, powernetless_only)
+				var/obj/structure/cable/C = locate(/obj/structure/cable) in T
+				if(C)
+					. += C
 
-	. += power_list(loc, src, powernetless_only) //get on turf matching cables
+/obj/structure/cable/proc/get_machine_connections(powernetless_only)
+	. = list()
+	for(var/obj/machinery/power/P in get_turf(src))
+		if(!powernetless_only || !P.powernet)
+			if(P.anchored)
+				. += P
 
 /obj/structure/cable/proc/auto_propogate_cut_cable(obj/O)
 	if(O && !QDELETED(O))
@@ -326,7 +331,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 	var/list/P_list = list()
 	for(var/dir_check in GLOB.cardinals)
 		if(linked_dirs & dir_check)
-			T1 = get_step(T1, dir_check)
+			T1 = get_step(loc, dir_check)
 			P_list += locate(/obj/structure/cable) in T1
 
 	// remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
@@ -334,7 +339,11 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(/obj/structure/gri
 		moveToNullspace()
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
+	var/first = TRUE
 	for(var/obj/O in P_list)
+		if(first)
+			first = FALSE
+			continue
 		addtimer(CALLBACK(O, .proc/auto_propogate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
 
 ///////////////////////////////////////////////
@@ -365,7 +374,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL=10, MAT_GLASS=5)
+	materials = list(/datum/material/iron=10, /datum/material/glass=5)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")

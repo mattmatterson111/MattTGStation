@@ -10,6 +10,8 @@
 	var/transfer_prints = FALSE
 	strip_delay = 20
 	equip_delay_other = 40
+	pickupsound = null
+	equipsound = null
 
 /obj/item/clothing/gloves/ComponentInitialize()
 	. = ..()
