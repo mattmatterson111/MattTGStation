@@ -14,6 +14,8 @@
 	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
+	pickupsound = 'sound/items/handle/disk_pickup.ogg'
+	dropsound = 'sound/items/handle/disk_drop.ogg'
 
 /obj/item/reagent_containers/syringe/Initialize()
 	. = ..()
