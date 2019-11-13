@@ -26,10 +26,19 @@
 	/obj/structure/falsewall/reinforced,
 	/turf/closed/wall/rust,
 	/turf/closed/wall/r_wall/rust,
-	/turf/closed/wall/clockwork)
+	/turf/closed/wall/clockwork,
+	/obj/structure/window/fulltile,
+	/obj/structure/window/reinforced/fulltile)
+
 	smooth = SMOOTH_TRUE
 
 	var/list/dent_decals
+
+/turf/closed/wall/Initialize(mapload)
+	for(var/thing in subtypesof(/obj/machinery/door))//Gotta have it smooth with all doors.
+		var/obj/machinery/door/D = thing
+		canSmoothWith |= D
+	. = ..()
 
 /turf/closed/wall/examine(mob/user)
 	. += ..()
@@ -174,7 +183,7 @@
 	var/turf/T = user.loc	//get user's location for delay checks
 
 	//the istype cascade has been spread among various procs for easy overriding
-	if(try_clean(W, user, T) || try_wallmount(W, user, T) || try_decon(W, user, T) || try_destroy(W, user, T))
+	if(try_clean(W, user, T) || try_wallmount(W, user, T) || try_decon(W, user, T))
 		return
 
 	return ..()
@@ -225,22 +234,11 @@
 
 	return FALSE
 
-
-/turf/closed/wall/proc/try_destroy(obj/item/I, mob/user, turf/T)
-	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
-		if(!iswallturf(src))
-			return TRUE
-		if(user.loc == T)
-			I.play_tool_sound(src)
-			dismantle_wall()
-			user.visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", \
-								"<span class='warning'>You smash through [src] with [I]!</span>", \
-								"<span class='italics'>You hear the grinding of metal.</span>")
-			return TRUE
-	return FALSE
-
 /turf/closed/wall/singularity_pull(S, current_size)
 	..()
+	wall_singularity_pull(current_size)
+
+/turf/closed/wall/proc/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(50))
 			dismantle_wall()

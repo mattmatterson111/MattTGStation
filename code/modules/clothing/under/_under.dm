@@ -1,6 +1,7 @@
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
+	icon = 'icons/obj/clothing/under/default.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/under/default.dmi'
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
@@ -16,7 +17,6 @@
 	var/mutable_appearance/accessory_overlay
 	var/mutantrace_variation = NO_MUTANTRACE_VARIATION //Are there special sprites for specific situations? Don't use this unless you need to.
 	var/freshly_laundered = FALSE
-	var/dodgy_colours = FALSE
 
 	equipsound = 'sound/items/equip/jumpsuit_equip.ogg'
 
@@ -116,10 +116,8 @@
 			if(user && notifyAttach)
 				to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 
-			var/accessory_color = attached_accessory.item_color
-			if(!accessory_color)
-				accessory_color = attached_accessory.icon_state
-			accessory_overlay = mutable_appearance('icons/mob/accessories.dmi', "[accessory_color]")
+			var/accessory_color = attached_accessory.icon_state
+			accessory_overlay = mutable_appearance('icons/mob/clothing/accessories.dmi', "[accessory_color]")
 			accessory_overlay.alpha = attached_accessory.alpha
 			accessory_overlay.color = attached_accessory.color
 
@@ -152,8 +150,6 @@
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
-	if(dodgy_colours)
-		. += "The colours are a bit dodgy."
 	if(freshly_laundered)
 		. += "It looks fresh and clean."
 	if(can_adjust)
@@ -175,3 +171,6 @@
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 	if(attached_accessory)
 		. += "\A [attached_accessory] is attached to it."
+
+/obj/item/clothing/under/rank
+	dying_key = DYE_REGISTRY_UNDER

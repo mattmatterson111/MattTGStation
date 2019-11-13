@@ -36,6 +36,7 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
+	var/list/connections = list("0", "0", "0", "0")
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
@@ -57,6 +58,7 @@
 	set_init_door_layer()
 	update_freelook_sight()
 	air_update_turf(1)
+	update_connections()
 	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
@@ -64,6 +66,39 @@
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+/obj/machinery/door/proc/update_connections()//Copied from bay.
+	if(istype(src,/obj/machinery/door/window))//Windoors fuck up.
+		return
+	var/dirs = 0
+
+	for(var/direction in GLOB.cardinals)
+		var/success = FALSE
+		var/turf/T = get_step(src, direction)
+		if( istype(T, /turf/closed/wall))
+			success = TRUE
+		
+		for(var/obj/O in T)
+			if(istype(O, /obj/structure/grille))
+				success = TRUE
+			else if(istype(O, /obj/structure/window))
+				success = TRUE
+			else if(istype(O, /obj/machinery/door))
+				success = TRUE
+			
+		if(success)	
+			dirs |= direction
+
+	connections = dirs
+
+	if(connections in list(NORTH, SOUTH, NORTH|SOUTH))
+		if(connections in list(WEST, EAST, EAST|WEST))
+			setDir(SOUTH)
+		else
+			setDir(EAST)
+	else
+		setDir(SOUTH)
+
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
