@@ -13,11 +13,17 @@
 	vary_fire_sound = FALSE
 	rack_sound = 'sound/weapons/mosinboltout.ogg'
 	bolt_drop_sound = 'sound/weapons/mosinboltin.ogg'
+	wielded_item_state = "moistnugget_wielded"
 	tac_reloads = FALSE
+	two_hand_penalty = 50
 
-obj/item/gun/ballistic/rifle/update_icon()
+/obj/item/gun/ballistic/rifle/update_icon()
 	..()
-	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
+	if(bolt_locked)
+		icon_state = "moistnugget_open"
+	if(bolt_locked == FALSE)
+		icon_state = "moistnugget_closed"
+	//add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
 obj/item/gun/ballistic/rifle/rack(mob/user = null)
 	if (bolt_locked == FALSE)
@@ -29,12 +35,12 @@ obj/item/gun/ballistic/rifle/rack(mob/user = null)
 		return
 	drop_bolt(user)
 
-obj/item/gun/ballistic/rifle/can_shoot()
+/obj/item/gun/ballistic/rifle/can_shoot()
 	if (bolt_locked)
 		return FALSE
 	return ..()
 
-obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	if (!bolt_locked)
 		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
 		return
@@ -43,6 +49,8 @@ obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 /obj/item/gun/ballistic/rifle/examine(mob/user)
 	. = ..()
 	. += "The bolt is [bolt_locked ? "open" : "closed"]."
+
+
 
 ///////////////////////
 // BOLT ACTION RIFLE //
@@ -55,7 +63,7 @@ obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	w_class = WEIGHT_CLASS_BULKY
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
-	slot_flags = 0 //no ITEM_SLOT_BACK sprite, alas
+	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	can_bayonet = TRUE
 	knife_x_offset = 27
@@ -73,6 +81,14 @@ obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	if(chambered && chambered.BB)
 		process_fire(user, user, FALSE)
 		. = 1
+
+/obj/item/gun/ballistic/rifle/boltaction/modern
+	name = "\improper Mark V Stormrider"
+	desc = "Even in the far, far future, this old thing still gets use."
+	icon_state = "moistnugget"
+	item_state = "moistnugget"
+	can_bayonet = FALSE
+	can_be_sawn_off = FALSE
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted
 	name = "enchanted bolt action rifle"

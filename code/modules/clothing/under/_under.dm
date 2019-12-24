@@ -18,6 +18,7 @@
 	var/mutantrace_variation = NO_MUTANTRACE_VARIATION //Are there special sprites for specific situations? Don't use this unless you need to.
 	var/freshly_laundered = FALSE
 
+	pickupsound = 'sound/items/handle/clothing_up.ogg'
 	equipsound = 'sound/items/equip/jumpsuit_equip.ogg'
 
 /obj/item/clothing/under/worn_overlays(isinhands = FALSE)

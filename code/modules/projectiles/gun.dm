@@ -17,6 +17,9 @@
 	force = 5
 	item_flags = NEEDS_PERMIT
 	attack_verb = list("struck", "hit", "bashed")
+	pickupsound_is_loud = TRUE
+	pickupsound = 'sound/items/unholster.ogg'
+	equipsound = 'sound/items/equip/gun_equip.ogg'
 	//pickupsound = 'sound/items/handle/gun_pickup.ogg'
 
 	var/fire_sound = "gunshot"
@@ -41,6 +44,7 @@
 	var/weapon_weight = WEAPON_LIGHT
 	var/spread = 0						//Spread induced by the gun itself.
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
+	var/two_hand_penalty = 0			//The penalty number for not holding the weapon in both hands. 
 
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
@@ -263,6 +267,8 @@
 			if(chambered.harmful) // Is the bullet chambered harmful?
 				to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
 				return
+		if(two_hand_penalty && !wielded)
+			randomized_bonus_spread += two_hand_penalty
 		if(randomspread)
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
 		else //Smart spread
@@ -300,6 +306,8 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 25
+	if(two_hand_penalty && !wielded)
+		bonus_spread += two_hand_penalty
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)

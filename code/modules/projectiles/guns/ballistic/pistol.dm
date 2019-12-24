@@ -16,6 +16,7 @@
 	bolt_drop_sound = 'sound/weapons/pistolslidedrop.ogg'
 	bolt_wording = "slide"
 	automatic = 0
+	two_hand_penalty = 0
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE

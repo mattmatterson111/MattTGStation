@@ -166,6 +166,7 @@
 		update_inv_hands()
 		I.pixel_x = initial(I.pixel_x)
 		I.pixel_y = initial(I.pixel_y)
+		I.grab_sound(src)
 		return hand_index || TRUE
 	return FALSE
 
@@ -276,6 +277,8 @@
 /mob/proc/dropItemToGround(obj/item/I, force = FALSE)
 	. = doUnEquip(I, force, drop_location(), FALSE)
 	if(. && I) //ensure the item exists and that it was dropped properly.
+		if(I.dropsound)
+			playsound(I, I.dropsound, DROP_SOUND_VOLUME, TRUE, INTERACTION_SOUND_RANGE_MODIFIER)
 		I.pixel_x = rand(-6,6)
 		I.pixel_y = rand(-6,6)
 

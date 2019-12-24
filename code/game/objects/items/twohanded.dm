@@ -22,24 +22,34 @@
 /*
  * Twohanded
  */
-/obj/item/twohanded
+/obj/item
 	var/wielded = 0
 	var/force_unwielded = 0
 	var/force_wielded = 0
-	var/wieldsound = null
+	var/wieldsound = 'sound/weapons/thudswoosh.ogg'
 	var/unwieldsound = null
+	var/wielded_item_state = null //The item state used when it's weilded. Guns are snowflakey and have their own shit for this. This is for non guns.
 
-/obj/item/twohanded/proc/unwield(mob/living/carbon/user, show_message = TRUE)
+/mob/living/proc/do_wield()
+	var/obj/item/I = get_active_held_item()
+	if(!I)
+		return
+	I.attempt_wield(src)
+
+/obj/item/proc/unwield(mob/living/carbon/user, show_message = TRUE)
 	if(!wielded || !user)
 		return
-	wielded = 0
-	if(!isnull(force_unwielded))
+	wielded = FALSE
+	if(force_unwielded)
 		force = force_unwielded
+	else
+		force = (force / 1.3)
 	var/sf = findtext(name," (Wielded)")
 	if(sf)
 		name = copytext(name,1,sf)
 	else //something wrong
 		name = "[initial(name)]"
+	update_unwield_icon()
 	update_icon()
 	if(user.get_item_by_slot(SLOT_BACK) == src)
 		user.update_inv_back()
@@ -49,7 +59,7 @@
 		if(iscyborg(user))
 			to_chat(user, "<span class='notice'>You free up your module.</span>")
 		else
-			to_chat(user, "<span class='notice'>You are now carrying [src] with one hand.</span>")
+			user.visible_message("<span class='notice'>[user] lets go of \the [src] with their other hand.</span>")
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = user.get_inactive_held_item()
@@ -57,7 +67,7 @@
 		O.unwield()
 	return
 
-/obj/item/twohanded/proc/wield(mob/living/carbon/user)
+/obj/item/proc/wield(mob/living/carbon/user)
 	if(wielded)
 		return
 	if(ismonkey(user))
@@ -69,15 +79,18 @@
 	if(user.get_num_arms() < 2)
 		to_chat(user, "<span class='warning'>You don't have enough intact hands.</span>")
 		return
-	wielded = 1
+	wielded = TRUE
 	if(force_wielded)
 		force = force_wielded
-	name = "[name] (Wielded)"
+	else
+		force = (force * 1.3)
+	name = "wielded [name]"
+	update_wield_icon()
 	update_icon()
 	if(iscyborg(user))
 		to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
 	else
-		to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
+		user.visible_message("<span class='notice'>[user] grabs \the [src] with both hands.</span>")
 	if (wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
@@ -87,7 +100,7 @@
 	user.put_in_inactive_hand(O)
 	return
 
-/obj/item/twohanded/dropped(mob/user)
+/obj/item/dropped(mob/user)
 	. = ..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
 	if(!wielded)
@@ -97,12 +110,23 @@
 /obj/item/twohanded/update_icon()
 	return
 
-/obj/item/twohanded/attack_self(mob/user)
-	. = ..()
+/obj/item/proc/update_wield_icon()
+	if(wielded && wielded_item_state)
+		item_state = wielded_item_state
+
+/obj/item/proc/update_unwield_icon()//That way it doesn't interupt any other special icon_states.
+	if(wielded_item_state)
+		item_state = "[initial(item_state)]"
+
+/obj/item/proc/attempt_wield(mob/user)
 	if(wielded) //Trying to unwield it
 		unwield(user)
 	else //Trying to wield it
 		wield(user)
+
+/obj/item/twohanded/attack_self(mob/user)
+	. = ..()
+	attempt_wield(user)
 
 /obj/item/twohanded/equip_to_best_slot(mob/M)
 	if(..())
@@ -111,7 +135,7 @@
 		unwield(M)
 		return
 
-/obj/item/twohanded/equipped(mob/user, slot)
+/obj/item/equipped(mob/user, slot)
 	..()
 	if(!user.is_holding(src) && wielded && !istype(src, /obj/item/twohanded/required))
 		unwield(user)
@@ -129,12 +153,14 @@
 	return ..()
 
 /obj/item/twohanded/offhand/dropped(mob/living/user, show_message = TRUE) //Only utilized by dismemberment since you can't normally switch to the offhand to drop it.
-	var/obj/I = user.get_active_held_item()
-	if(I && istype(I, /obj/item/twohanded))
-		var/obj/item/twohanded/thw = I
-		thw.unwield(user, show_message)
-		if(istype(thw, /obj/item/twohanded/required))
-			user.dropItemToGround(thw)
+	var/obj/item/I = user.get_inactive_held_item()
+	var/obj/item/II = user.get_active_held_item()
+	if(I && istype(I, /obj/item/twohanded/required))
+		user.dropItemToGround(I)
+	if(I && I.wielded)
+		I.unwield(user, show_message)
+	if(II && II.wielded)
+		II.unwield(user, show_message)
 	if(!QDELETED(src))
 		qdel(src)
 
@@ -867,3 +893,8 @@
 		C.check_view()
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
+
+
+/mob/living/verb/wield_hotkey()//For the hotkeys. Not sure where this should be put. But it pertains to two-handing so *shrug*.
+	set name = ".wield"
+	do_wield()

@@ -37,6 +37,7 @@ SUBSYSTEM_DEF(input)
 			"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
+			"C" = ".wield",
 			),
 		"old_default" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_hotkeys map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
@@ -51,6 +52,7 @@ SUBSYSTEM_DEF(input)
 			"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
+			"C" = ".wield",
 			),
 		)
 

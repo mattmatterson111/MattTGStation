@@ -4,7 +4,7 @@
 	max_integrity = 300
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	var/climb_time = 20
-	var/climb_stun = 20
+	var/climb_stun = 0 //20 //Stunning people for climbing is fucking dumb.
 	var/climbable = FALSE
 	var/mob/living/structureclimber
 	var/broken = 0 //similar to machinery's stat BROKEN

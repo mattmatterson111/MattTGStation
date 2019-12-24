@@ -10,6 +10,8 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
+	equipsound = 'sound/items/equip/mask_equip.ogg'
+	pickupsound = 'sound/items/handle/clothing_generic.ogg'
 
 // **** Welding gas mask ****
 

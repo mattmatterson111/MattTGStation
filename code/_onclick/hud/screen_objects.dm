@@ -92,6 +92,18 @@
 	var/datum/language_holder/H = M.get_language_holder()
 	H.open_language_menu(usr)
 
+/obj/screen/wield
+	name = "wield"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "wield"
+	screen_loc = ui_wield
+
+/obj/screen/wield/Click()
+	var/mob/M = usr
+	if(isliving(M))
+		var/mob/living/L = M
+		L.do_wield()
+
 /obj/screen/inventory
 	var/slot_id	// The indentifier for the slot. It has nothing to do with ID cards.
 	var/icon_empty // Icon when empty. For now used only by humans.

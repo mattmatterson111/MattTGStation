@@ -36,7 +36,7 @@
 	var/dynamic_hair_suffix = ""//head > mask for head hair
 	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
-	pickupsound = 'sound/items/handle/cloth_pickup.ogg'
+	pickupsound = 'sound/items/handle/clothing_up.ogg'
 	dropsound = 'sound/items/handle/cloth_drop.ogg'
 
 

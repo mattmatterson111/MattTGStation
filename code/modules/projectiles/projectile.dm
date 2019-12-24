@@ -12,7 +12,8 @@
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
-	hitsound = "bullet_hitsound"
+	hitsound = null
+	var/impactsound = "bullet_hitsound"
 	var/hitsound_wall = ""
 
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -183,12 +184,12 @@
 		if(limb_hit)
 			organ_hit_text = " in \the [parse_zone(limb_hit)]"
 		if(suppressed)
-			playsound(loc, hitsound, 5, 1, -1)
+			playsound(loc, impactsound, 5, 1, -1)
 			to_chat(L, "<span class='userdanger'>You're shot by \a [src][organ_hit_text]!</span>")
 		else
-			if(hitsound)
+			if(impactsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
+				playsound(loc, impactsound, volume, 1, -1)
 			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
 					"<span class='userdanger'>You're hit by \a [src][organ_hit_text]!</span>", null, COMBAT_MESSAGE_RANGE)
 		L.on_hit(src)

@@ -6,6 +6,7 @@
 	light_range = 2
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
+	impactsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
 	eyeblur = 2

@@ -453,11 +453,11 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/x = min(world.maxx, max(1, A.x + dx))
 	var/y = min(world.maxy, max(1, A.y + dy))
 	return locate(x,y,A.z)
-
+/*
 /proc/arctan(x)
 	var/y=arcsin(x/sqrt(1+x*x))
 	return y
-
+*/
 /*
 	Gets all contents of contents and returns them all in a list.
 */

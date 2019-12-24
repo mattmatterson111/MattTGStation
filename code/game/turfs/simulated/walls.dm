@@ -28,17 +28,36 @@
 	/turf/closed/wall/r_wall/rust,
 	/turf/closed/wall/clockwork,
 	/obj/structure/window/fulltile,
-	/obj/structure/window/reinforced/fulltile)
+	/obj/structure/window/reinforced/fulltile,
+	/obj/structure/window/reinforced/tinted/fulltile,
+	/obj/structure/window/plasma/fulltile,
+	/obj/structure/window/plasma/reinforced/fulltile,
+	/obj/machinery/door/airlock/,
+	/obj/machinery/door/airlock/mining,
+	/obj/machinery/door/airlock/mining/glass,
+	/obj/machinery/door/airlock/medical,
+	/obj/machinery/door/airlock/medical/glass,
+	/obj/machinery/door/airlock/public,
+	/obj/machinery/door/airlock/public/glass,
+	/obj/machinery/door/airlock/research,
+	/obj/machinery/door/airlock/research/glass,
+	/obj/machinery/door/airlock/maintenance,
+	/obj/machinery/door/airlock/maintenance/glass,
+	/obj/machinery/door/airlock/command/,
+	/obj/machinery/door/airlock/command/glass,
+	/obj/machinery/door)
 
 	smooth = SMOOTH_TRUE
 
 	var/list/dent_decals
 
+/*
 /turf/closed/wall/Initialize(mapload)
 	for(var/thing in subtypesof(/obj/machinery/door))//Gotta have it smooth with all doors.
 		var/obj/machinery/door/D = thing
 		canSmoothWith |= D
 	. = ..()
+*/
 
 /turf/closed/wall/examine(mob/user)
 	. += ..()

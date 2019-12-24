@@ -369,6 +369,18 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(cultslurring)
 		message = cultslur(message)
+	
+	//Adds punctuation automatically.
+	var/ending = copytext(message, -1)
+	if(!(ending in PUNCTUATION))
+		message = "[message]."
+	
+	message = replacetext(message, "/", "")//None of this.
+	message = replacetext(message, "~", "")//Or this.
+	message = replacetext(message, " i ", " I ")//FUCKING USE CAPITAL LETTERS JAMES YOU FUCK!
+	message = replacetext(message, " ive ", " I've ")//I'M SO FUCKING SICK OF SEEING IVE YOU FUCKS
+	message = replacetext(message, " im ", " I'm ")//AND IM TOO! STOP THAT YOU FUCKS!
+	message = replacetext(message, " u ", " you ")//STOP USING FUCKING U YOU SICK FUCKS!
 
 	message = capitalize(message)
 

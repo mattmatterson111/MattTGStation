@@ -41,6 +41,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/pickupsound = null
 	var/dropsound = null
 	var/equipsound = null
+	var/pickupsound_is_loud = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
@@ -400,8 +401,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
-	if(dropsound)
-		playsound(src, dropsound, DROP_SOUND_VOLUME, TRUE, INTERACTION_SOUND_RANGE_MODIFIER)
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 	
 
@@ -409,8 +408,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= IN_INVENTORY
-	if(pickupsound)
-		playsound(src, pickupsound, PICKUP_SOUND_VOLUME, TRUE, INTERACTION_SOUND_RANGE_MODIFIER)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)
@@ -428,9 +425,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
 	item_flags |= IN_INVENTORY
-	if(slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
-		if(equipsound)
-			playsound(src, equipsound, EQUIP_SOUND_VOLUME, TRUE)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -833,3 +827,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
 	return owner.dropItemToGround(src)
+
+
+/obj/item/proc/grab_sound(mob/user)
+	if(pickupsound)
+		if(pickupsound_is_loud)
+			user.visible_message("<span class = 'warning'><b>[user] grabs a weapon!</b></span>")
+		playsound(user, pickupsound, 50, 1)
