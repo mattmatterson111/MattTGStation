@@ -12134,11 +12134,11 @@
 	id = "holdingflash";
 	pixel_x = 25
 	},
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
-/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/security/prisoner,
+/obj/item/clothing/under/rank/security/prisoner,
+/obj/item/clothing/under/rank/security/prisoner,
+/obj/item/clothing/under/rank/security/prisoner,
+/obj/item/clothing/under/rank/security/prisoner,
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/shoes/sneakers/orange,
