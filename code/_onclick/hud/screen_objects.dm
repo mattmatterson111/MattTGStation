@@ -294,6 +294,7 @@
 		C.internal = null
 		to_chat(C, "<span class='notice'>You are no longer running on internals.</span>")
 		icon_state = "internal0"
+		playsound(C, "sound/effects/valve_creak.ogg", 50, 1)
 	else
 		if(!C.getorganslot(ORGAN_SLOT_BREATHING_TUBE))
 			if(!istype(C.wear_mask, /obj/item/clothing/mask))
@@ -333,6 +334,7 @@
 
 		if(C.internal)
 			icon_state = "internal1"
+			playsound(C, "sound/effects/valve_creak.ogg", 50, 1)
 		else
 			to_chat(C, "<span class='warning'>You don't have an oxygen tank!</span>")
 			return
