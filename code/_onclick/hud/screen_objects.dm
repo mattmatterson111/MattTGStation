@@ -246,7 +246,7 @@
 /obj/screen/act_intent
 	name = "intent"
 	icon_state = "help"
-	screen_loc = ui_acti
+	screen_loc = ui_movi//ui_acti
 
 /obj/screen/act_intent/Click(location, control, params)
 	usr.a_intent_change(INTENT_HOTKEY_RIGHT)

@@ -116,7 +116,7 @@
 	using = new /obj/screen/mov_intent
 	using.icon = ui_style
 	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
-	using.screen_loc = ui_movi
+	using.screen_loc = ui_above_movement
 	static_inventory += using
 
 	using = new /obj/screen/drop()
