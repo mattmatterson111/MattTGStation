@@ -376,9 +376,7 @@
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
-	icon = 'icons/obj/doors/airlocks/hatch/maintenance.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/station/engineering.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 
 //////////////////////////////////
