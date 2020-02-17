@@ -82,6 +82,8 @@
 
 	ComponentInitialize()
 
+	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/proc/Initalize_Atmos(times_fired)

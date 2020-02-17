@@ -68,6 +68,8 @@
 	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
+	
+	vis_flags = VIS_INHERIT_PLANE
 
 
 /obj/Destroy(force=FALSE)

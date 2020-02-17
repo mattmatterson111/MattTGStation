@@ -81,6 +81,8 @@
 	update_config_movespeed()
 	update_movespeed(TRUE)
 
+	vis_flags = VIS_INHERIT_PLANE
+
 /**
   * Generate the tag for this mob
   *
