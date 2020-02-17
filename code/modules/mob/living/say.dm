@@ -295,6 +295,25 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	
 	INVOKE_ASYNC(GLOBAL_PROC, /.proc/animate_speechbubble, I, speech_bubble_recipients, 30)
 
+	if(message_mode != MODE_WHISPER && message_mode != MODE_HEADSET)//Not speaking into a radio or whispering, or singing, or whatever.
+		var/sound_key = "m"
+		var/sound_end = ""//Blank string by default
+		if(gender == FEMALE)
+			sound_key = "f"
+		if(gender == PLURAL)//Fuck plural genders tbh. Such an unneseccessary edition.
+			sound_key = "n"
+		if(gender == NEUTER)
+			sound_key = "n"
+
+		if(say_mod(message, message_mode) == verb_ask)
+			sound_end = "_ask"
+		if(say_mod(message, message_mode) == verb_exclaim)
+			sound_end = "_exclaim"
+		if(say_mod(message, message_mode) == verb_yell)
+			sound_end = "_exclaim"
+
+		playsound(src, "sound/voice/human/[sound_key]speak[sound_end].ogg", 100)//Play the talking sound.
+
 
 /proc/animate_speechbubble(image/I, list/show_to, duration)
 	var/matrix/M = matrix()
