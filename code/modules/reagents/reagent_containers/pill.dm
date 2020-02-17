@@ -37,6 +37,7 @@
 			if(!do_mob(user, M, self_delay))
 				return FALSE
 		to_chat(M, "<span class='notice'>You [apply_method] [src].</span>")
+		playsound(M, 'sound/voice/swallow.ogg', 100)
 
 	else
 		M.visible_message("<span class='danger'>[user] attempts to force [M] to [apply_method] [src].</span>", \
@@ -45,6 +46,7 @@
 			return FALSE
 		M.visible_message("<span class='danger'>[user] forces [M] to [apply_method] [src].</span>", \
 							"<span class='userdanger'>[user] forces you to [apply_method] [src].</span>")
+		playsound(M, 'sound/voice/swallow.ogg', 100)
 
 	var/makes_me_think = pick(strings(REDPILL_FILE, "redpill_questions"))
 	if(icon_state == "pill4" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes
