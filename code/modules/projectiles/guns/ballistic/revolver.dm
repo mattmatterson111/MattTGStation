@@ -13,6 +13,7 @@
 	internal_magazine = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
 	tac_reloads = FALSE
+	fire_delay = 4
 	var/spin_delay = 10
 	var/recent_spin = 0
 

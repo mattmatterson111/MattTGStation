@@ -18,7 +18,7 @@
 	var/variance = 0							//Variance for inaccuracy fundamental to the casing
 	var/randomspread = 0						//Randomspread for automatics
 	var/delay = 0								//Delay for energy weapons
-	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
+	var/click_cooldown_override = 1				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the ammo is fired.
 	var/heavy_metal = TRUE
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
@@ -86,7 +86,7 @@
 	if(!heavy_metal)
 		return
 	update_icon()
-	SpinAnimation(10, 1)
+	//SpinAnimation(10, 1)
 	var/turf/T = get_turf(src)
 	if(still_warm && T && T.bullet_sizzle)
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/items/welder.ogg', 20, 1), bounce_delay) //If the turf is made of water and the shell casing is still hot, make a sizzling sound when it's ejected.

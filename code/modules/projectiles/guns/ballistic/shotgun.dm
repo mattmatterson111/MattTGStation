@@ -6,7 +6,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
 	item_state = "shotgun"
 	wielded_item_state = "shotgun-wielded"
-	fire_sound = "sound/weapons/shotgunshot.ogg"
+	fire_sound = 'sound/weapons/shotgunshot.ogg'
 	vary_fire_sound = FALSE
 	fire_sound_volume = 90
 	rack_sound = 'sound/weapons/shotgunpump.ogg'
@@ -229,7 +229,7 @@
 	desc = "Range isn't an issue when you can bring your victim to you."
 	icon_state = "hookshotgun"
 	item_state = "shotgun"
-	load_sound = "sound/weapons/shotguninsert.ogg"
+	load_sound = 'sound/weapons/shotguninsert.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bounty
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM

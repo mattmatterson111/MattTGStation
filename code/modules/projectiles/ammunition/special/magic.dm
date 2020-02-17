@@ -4,6 +4,7 @@
 	projectile_type = /obj/item/projectile/magic
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/magic
 	heavy_metal = FALSE
+	click_cooldown_override = 0
 
 /obj/item/ammo_casing/magic/change
 	projectile_type = /obj/item/projectile/magic/change

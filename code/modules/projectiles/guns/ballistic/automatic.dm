@@ -2,14 +2,15 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/select = 1
 	can_suppress = TRUE
-	burst_size = 3
-	fire_delay = 2
+	burst_size = 1
+	fire_delay = 1
+	automatic = 1
 	actions_types = list(/datum/action/item_action/toggle_firemode)
 	semi_auto = TRUE
-	fire_sound = "sound/weapons/smgshot.ogg"
+	fire_sound = 'sound/weapons/smgshot.ogg'
 	fire_sound_volume = 80
 	vary_fire_sound = FALSE
-	rack_sound = "sound/weapons/smgrack.ogg"
+	rack_sound = 'sound/weapons/smgrack.ogg'
 	two_hand_penalty = 25
 
 /obj/item/gun/ballistic/automatic/proto
@@ -42,10 +43,13 @@
 	select = !select
 	if(!select)
 		burst_size = 1
-		fire_delay = 0
+		fire_delay = 4
+		automatic = 0
 		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
 	else
-		automatic = 0.1
+		automatic = 1
+		burst_size = 1
+		fire_delay = 1
 		to_chat(user, "<span class='notice'>You switch to automatic.</span>")
 		//burst_size = initial(burst_size)
 		//fire_delay = initial(fire_delay)
@@ -105,7 +109,7 @@
 	burst_size = 2
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
-	rack_sound = "sound/weapons/pistollock.ogg"
+	rack_sound = 'sound/weapons/pistollock.ogg'
 
 /obj/item/gun/ballistic/automatic/m90
 	name = "\improper M-90gl Carbine"
@@ -220,8 +224,6 @@
 	weapon_weight = WEAPON_HEAVY
 	var/cover_open = FALSE
 	can_suppress = FALSE
-	burst_size = 3
-	fire_delay = 1
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
 	bolt_type = BOLT_TYPE_OPEN
@@ -290,7 +292,7 @@
 	desc = "A long ranged weapon that does significant damage. No, you can't quickscope."
 	icon_state = "sniper"
 	item_state = "sniper"
-	fire_sound = "sound/weapons/sniper_shot.ogg"
+	fire_sound = 'sound/weapons/sniper_shot.ogg'
 	fire_sound_volume = 90
 	vary_fire_sound = FALSE
 	load_sound = 'sound/weapons/sniper_mag_insert.ogg'

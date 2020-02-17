@@ -5,6 +5,7 @@
 	name = "projectile gun"
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_NORMAL
+	fire_delay = 4
 
 	///sound when inserting magazine
 	var/load_sound = "gun_insert_full_magazine"
@@ -21,7 +22,7 @@
 	///whether racking sound should vary
 	var/rack_sound_vary = TRUE
 	///sound of when the bolt is locked back manually
-	var/lock_back_sound = "sound/weapons/pistollock.ogg"
+	var/lock_back_sound = 'sound/weapons/pistollock.ogg'
 	///volume of lock back
 	var/lock_back_sound_volume = 60
 	///whether lock back varies

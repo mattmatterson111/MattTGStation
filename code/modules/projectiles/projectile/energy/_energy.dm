@@ -5,3 +5,4 @@
 	damage_type = BURN
 	flag = "energy"
 	reflectable = REFLECT_NORMAL
+	speed = 0.8

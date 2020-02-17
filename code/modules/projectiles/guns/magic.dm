@@ -9,6 +9,7 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	flags_1 =  CONDUCT_1
 	w_class = WEIGHT_CLASS_HUGE
+	fire_delay = 4
 	var/checks_antimagic = TRUE
 	var/max_charges = 6
 	var/charges = 0

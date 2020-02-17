@@ -34,3 +34,25 @@
 	name = "shotgun magazine (12g meteor slugs)"
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/meteorslug
+
+/obj/item/ammo_box/shotgun
+	name = "shotgun shells box (buckshot)"
+	icon = 'icons/obj/ammo.dmi'
+	icon_state = "pellet_box"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	max_ammo = 20
+
+/obj/item/ammo_box/shotgun/update_icon()
+	var/filled_perc = CLAMP(stored_ammo.len * 100 / max_ammo, 0, 100)
+
+	if(filled_perc >= 50 && filled_perc < 100)
+		filled_perc = 75
+	else if(filled_perc < 50 && filled_perc > 0)
+		filled_perc = 25
+
+	icon_state = initial(icon_state) + "_[filled_perc]"
+
+/obj/item/ammo_box/shotgun/beanbag
+	name = "shotgun shells box (rubbershot)"
+	icon_state = "beanbag_box"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
