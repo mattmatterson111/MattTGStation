@@ -385,6 +385,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK) && !href_list["close"])
 		add_fingerprint(U)
 		U.set_machine(src)
+		playsound(src, 'sound/machines/pda_click.ogg', 40)
 
 		switch(href_list["choice"])
 
