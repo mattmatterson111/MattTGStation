@@ -86,7 +86,7 @@
 	switch(slot)
 		if(SLOT_BELT)
 			if(I.equipsound)//Putting something on your belt, holstering a weapon.
-				playsound(src, I.equipsound, 50, 1)
+				playsound(src, I.equipsound, 25, 1)
 			belt = I
 			update_inv_belt()	
 		if(SLOT_WEAR_ID)
@@ -117,7 +117,7 @@
 			update_inv_shoes()
 		if(SLOT_WEAR_SUIT)
 			if(I.equipsound)//Putting on armor.
-				playsound(src, I.equipsound, 50, 1)
+				playsound(src, I.equipsound, 25, 1)
 			wear_suit = I
 			if(I.flags_inv & HIDEJUMPSUIT)
 				update_inv_w_uniform()
@@ -127,7 +127,7 @@
 			update_inv_wear_suit()
 		if(SLOT_W_UNIFORM)
 			if(I.equipsound)//Slipping on your uniform.
-				playsound(src, I.equipsound, 50, 1)
+				playsound(src, I.equipsound, 25, 1)
 			w_uniform = I
 			update_suit_sensors()
 			update_inv_w_uniform()
@@ -139,7 +139,7 @@
 			update_inv_pockets()
 		if(SLOT_S_STORE)
 			if(I.equipsound)//Holstering a gun.
-				playsound(src, I.equipsound, 50, 1)
+				playsound(src, I.equipsound, 25, 1)
 			s_store = I
 			update_inv_s_store()
 		else

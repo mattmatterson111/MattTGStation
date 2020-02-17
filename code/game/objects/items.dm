@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/hitsound = null
 	var/usesound = null
 	var/throwhitsound = null
-	var/pickupsound = null
+	var/pickupsound = "generic_pickup"
 	var/dropsound = null
 	var/equipsound = null
 	var/pickupsound_is_loud = FALSE

@@ -52,17 +52,17 @@
 	switch(slot)
 		if(SLOT_BACK)
 			if(I.equipsound)//Putting on a rifle or backpack.
-				playsound(src, I.equipsound, 50, 1)
+				playsound(src, I.equipsound, 25, 1)
 			back = I
 			update_inv_back()
 		if(SLOT_WEAR_MASK)
 			if(I.equipsound)//Slipping on a gas mask.
-				playsound(src, I.equipsound, 50, 1)
+				playsound(src, I.equipsound, 25, 1)
 			wear_mask = I
 			wear_mask_update(I, toggle_off = 0)
 		if(SLOT_HEAD)
 			if(I.equipsound)//Putting on some sort of helmet.
-				playsound(src, I.equipsound, 50, 1)
+				playsound(src, I.equipsound, 25, 1)
 			head = I
 			head_update(I)
 		if(SLOT_NECK)
