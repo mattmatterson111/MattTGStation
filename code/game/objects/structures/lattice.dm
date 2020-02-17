@@ -15,6 +15,7 @@
 	/turf/closed/wall,
 	/obj/structure/falsewall)
 	smooth = SMOOTH_MORE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_FALL 
 	//	flags = CONDUCT_1
 
 /obj/structure/lattice/examine(mob/user)
