@@ -556,6 +556,7 @@
 	// this must come before the screen objects only block, dunno why it wasn't before
 	if(over_object == M)
 		user_show_to_mob(M)
+		playsound(A, "rustle", 50, 1, -5)
 	if(!istype(over_object, /obj/screen))
 		dump_content_at(over_object, M)
 		return
