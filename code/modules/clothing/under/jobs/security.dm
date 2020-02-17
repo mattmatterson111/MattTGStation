@@ -202,7 +202,7 @@
 	item_state = "spacepol"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/prisoner
+/obj/item/clothing/under/rank/security/prisoner
 	name = "prison jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisoner"
@@ -211,7 +211,7 @@
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
-/obj/item/clothing/under/rank/prisoner/skirt
+/obj/item/clothing/under/rank/security/prisoner/skirt
 	name = "prison jumpskirt"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
 	icon_state = "prisoner_skirt"

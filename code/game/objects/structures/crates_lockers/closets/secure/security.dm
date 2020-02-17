@@ -233,8 +233,8 @@
 
 /obj/structure/closet/secure_closet/brig/PopulateContents()
 	..()
-	new /obj/item/clothing/under/rank/prisoner( src )
-	new /obj/item/clothing/under/rank/prisoner/skirt( src )
+	new /obj/item/clothing/under/rank/security/prisoner( src )
+	new /obj/item/clothing/under/rank/security/prisoner/skirt( src )
 	new /obj/item/clothing/shoes/sneakers/orange( src )
 
 /obj/structure/closet/secure_closet/courtroom
@@ -323,7 +323,7 @@
 /obj/structure/closet/secure_closet/lethalshots/PopulateContents()
 	..()
 	for(var/i in 1 to 3)
-		new /obj/item/storage/box/lethalshot(src)
+		new /obj/item/ammo_box/shotgun(src)
 
 /obj/structure/closet/secure_closet/labor_camp_security
 	name = "labor camp security locker"
