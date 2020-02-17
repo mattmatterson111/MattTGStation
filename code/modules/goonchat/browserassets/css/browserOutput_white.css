@@ -247,7 +247,7 @@ a.popt {text-decoration: none;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover {color: #638500;}
 
 /* ADD HERE FOR BOLD */
-.bold, .name, .prefix, .ooc, .looc, .adminooc, .admin, .medal, .yell {font-weight: bold;}
+.bold, .name, .prefix, .ooc, .looc, .adminooc, .admin, .medal {font-weight: bold;}
 
 /* ADD HERE FOR ITALIC */
 .italic, .italics,  .emote {font-style: italic;}
@@ -288,7 +288,7 @@ em						{font-style: normal;	font-weight: bold;}
 .redteamradio           {color: #ff0000;}
 .blueteamradio          {color: #0000ff;}
 
-.yell					{					font-weight: bold;}
+.yell					{font-size: 14px; font-weight: bold;}
 
 .alert					{color: #ff0000;}
 h1.alert, h2.alert		{color: #000000;}
