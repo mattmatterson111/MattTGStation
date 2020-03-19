@@ -97,6 +97,9 @@
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
 		return
+	if(modifiers["right"])
+		RightClickOn(A)
+		return 1
 
 	if(incapacitated(ignore_restraints = 1))
 		return
@@ -279,6 +282,19 @@
 	Not currently used by anything but could easily be.
 */
 /mob/proc/RestrainedClickOn(atom/A)
+	return
+
+
+/*
+	Right click 
+	Used for all kinds of shit.
+
+*/
+
+/mob/proc/RightClickOn(var/atom/A)
+	A.RightClick(src)
+
+/atom/proc/RightClick(var/mob/user)
 	return
 
 /*

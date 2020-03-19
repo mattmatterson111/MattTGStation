@@ -12,6 +12,8 @@
  * Tables
  */
 
+/obj/item/var/table_sound = null		  //Sound it makes when you put something on a table.
+/obj/item/var/table_pickup_sound = null  //Sound it makes when you take something off a table.
 /obj/structure/table
 	name = "table"
 	desc = "A square piece of metal standing on four metal legs. It can not move."
@@ -175,6 +177,8 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = CLAMP(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = CLAMP(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			if(I.table_sound)
+				playsound(src, I.table_sound, 50)
 			return 1
 	else
 		return ..()

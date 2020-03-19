@@ -7,6 +7,10 @@
 	item_state = "atoxinbottle"
 	possible_transfer_amounts = list(5,10,15,25,30)
 	volume = 30
+	pickupsound = null
+	table_sound = 'sound/items/placing_glass2.ogg'
+	dropsound = 'sound/items/drop_glass.ogg'
+	table_pickup_sound = 'sound/items/generic_lift.ogg'
 
 
 /obj/item/reagent_containers/glass/bottle/Initialize()

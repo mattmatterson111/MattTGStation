@@ -10,6 +10,8 @@
 
 	pickupsound = 'sound/items/handle/drinkglass_pickup.ogg'
 	dropsound = 'sound/items/handle/drinkglass_drop.ogg'
+	table_sound = 'sound/items/placing_glass.ogg'
+	table_pickup_sound = 'sound/items/generic_lift.ogg'
 
 
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, obj/target)

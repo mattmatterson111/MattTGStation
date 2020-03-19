@@ -408,6 +408,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= IN_INVENTORY
+	if(locate(/obj/structure/table) in loc)
+		if(table_pickup_sound)
+			playsound(src, table_pickup_sound, 50)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)

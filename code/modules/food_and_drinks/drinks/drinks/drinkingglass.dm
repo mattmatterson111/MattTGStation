@@ -12,6 +12,10 @@
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 	obj_flags = UNIQUE_RENAME
+	pickupsound = null
+	table_sound = 'sound/items/placing_glass2.ogg'
+	dropsound = 'sound/items/drop_glass.ogg'
+	table_pickup_sound = 'sound/items/generic_lift.ogg'
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change(changetype)
 	cut_overlays()

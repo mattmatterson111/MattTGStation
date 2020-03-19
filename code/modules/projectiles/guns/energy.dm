@@ -140,6 +140,8 @@
 	var/ratio = CEILING(CLAMP(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
 	if(ratio == old_ratio && !force_update)
 		return
+	if(!cell)
+		ratio = 0
 	old_ratio = ratio
 	cut_overlays()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -152,7 +154,9 @@
 		iconState += "_[shot.select_name]"
 		if(itemState)
 			itemState += "[shot.select_name]"
-	if(cell.charge < shot.e_cost)
+	if(!cell)
+		add_overlay("[icon_state]_empty")
+	else if(cell.charge < shot.e_cost)
 		add_overlay("[icon_state]_empty")
 	else
 		if(!shaded_charge)
@@ -224,3 +228,49 @@
 			playsound(user, BB.hitsound, 50, 1)
 			cell.use(E.e_cost)
 			. = "<span class='danger'>[user] casually lights their [A.name] with [src]. Damn.</span>"
+
+
+
+/obj/item/gun/energy/attackby(obj/item/A, mob/user)
+	load_ammo(A, user)
+
+/obj/item/gun/energy/proc/load_ammo(obj/item/A, mob/user)
+	if(!istype(A, /obj/item/stock_parts/cell))
+		return
+
+	if(cell)
+		to_chat(user, "<span class='warning'>[src] already has a power cell loaded.</span>")//already a power cell here
+		return
+
+	user.transferItemToLoc(A, src)
+	//A.forceMove(src)
+	cell = A
+	user.visible_message("[user] inserts [A] into [src].", "<span class='notice'>You insert [A] into [src].</span>")
+	playsound(src, 'sound/weapons/mag_load.ogg', 100)
+	update_icon()
+
+
+/obj/item/gun/energy/proc/unload_ammo(mob/user)
+	if(cell)
+		playsound(src, 'sound/weapons/mag_unload.ogg', 100)
+		user.visible_message("[user] removes the power cell from [src].", "<span class='notice'>You remove the power cell from [src].</span>")
+		user.put_in_hands(cell)
+		cell.update_icon()
+		cell = null
+		update_icon()
+
+/obj/item/gun/energy/MouseDrop(obj/over_object)
+	if (!over_object || !(ishuman(usr)))
+		return
+
+	if (!(src.loc == usr))
+		return
+
+	if(usr.stat)
+		return
+
+	switch(over_object.name)
+		if("right hand")
+			unload_ammo(usr)
+		if("left hand")
+			unload_ammo(usr)

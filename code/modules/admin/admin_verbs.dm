@@ -75,7 +75,8 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/toggleadminhelpsound,
 	/client/proc/respawn_character,
 	/client/proc/discord_id_manipulation,
-	/datum/admins/proc/open_borgopanel
+	/datum/admins/proc/open_borgopanel,
+	/client/proc/toggle_right_click
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -716,3 +717,16 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	log_admin("[key_name(usr)] has [AI_Interact ? "activated" : "deactivated"] Admin AI Interact")
 	message_admins("[key_name_admin(usr)] has [AI_Interact ? "activated" : "deactivated"] their AI interaction")
+
+
+//A verb so that admins can toggle right click if they need to use debug stuff. - Matt
+/client/proc/toggle_right_click()
+	set name = "Toggle Right Click"
+	set category = "Admin"
+
+	if(!show_popup_menus)
+		show_popup_menus = TRUE
+		to_chat(src, "<span class='notice'>Right click enabled.</span>")
+	else
+		show_popup_menus = FALSE
+		to_chat(src, "<span class='notice'>Right click disabled.</span>")

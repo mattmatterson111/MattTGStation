@@ -17,6 +17,34 @@
 	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
 */
 
+
+// so that you can move things around easily, in theory
+// before you use any of these, please make sure the HUD you are using them in is actually related to the ones they're used on,
+// so that we dont move the human HUD around and half the robot HUD winds up being all over the place (again)
+#define ui_inventory "CENTER-5, SOUTH"
+#define ui_belt "CENTER-4, SOUTH"
+#define ui_back "CENTER-1, SOUTH"
+#define ui_lhand "CENTER, SOUTH"
+#define ui_rhand "CENTER+1, SOUTH"
+//#define ui_twohand "CENTER+0:16, SOUTH"
+#define ui_shoes "CENTER-5, SOUTH+1"
+#define ui_gloves "CENTER-4, SOUTH+1"
+#define ui_id "CENTER-3, SOUTH+1"
+#define ui_iclothing "CENTER-2, SOUTH+1"
+#define ui_oclothing "CENTER-1, SOUTH+1"
+#define ui_glasses "CENTER, SOUTH+1"
+#define ui_ears "CENTER+1, SOUTH+1"
+#define ui_mask "CENTER+2, SOUTH+1"
+#define ui_head "CENTER+3, SOUTH+1"
+#define ui_drop_throw "CENTER+2, SOUTH"
+//#define ui_acti "CENTER+3, SOUTH"
+#define ui_movi "CENTER+5, SOUTH"
+#define ui_resist "CENTER+5, SOUTH"
+#define ui_pulling "CENTER+6, SOUTH"
+#define ui_rest "CENTER+6, SOUTH"
+#define ui_zonesel "CENTER+4, SOUTH"
+
+
 //Lower left, persistent menu
 #define ui_inventory "WEST:6,SOUTH:5"
 
